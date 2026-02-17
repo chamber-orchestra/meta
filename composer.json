@@ -34,6 +34,7 @@
   },
   "require-dev": {
     "doctrine/doctrine-bundle": "^3.2",
+    "friendsofphp/php-cs-fixer": "^3.0",
     "phpunit/phpunit": "^13.0",
     "symfony/framework-bundle": "^8.0",
     "symfony/yaml": "^8.0"

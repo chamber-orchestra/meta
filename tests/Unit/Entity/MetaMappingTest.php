@@ -99,6 +99,6 @@ final class MetaMappingTest extends TestCase
     {
         $expectedFields = ['id', 'title', 'metaTitle', 'metaImagePath', 'metaDescription', 'metaKeywords', 'robotsBehaviour'];
 
-        self::assertSame($expectedFields, array_keys($this->metadata->fieldMappings));
+        self::assertSame($expectedFields, \array_keys($this->metadata->fieldMappings));
     }
 }

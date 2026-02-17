@@ -29,7 +29,7 @@ final class EntityPersistenceTest extends KernelTestCase
         $schemaTool->dropSchema([$this->em->getClassMetadata(TestArticle::class)]);
 
         parent::tearDown();
-        restore_exception_handler();
+        \restore_exception_handler();
     }
 
     public function testPersistAndRetrieveWithAllFields(): void
@@ -92,7 +92,7 @@ final class EntityPersistenceTest extends KernelTestCase
 
             $loaded = $this->em->find(TestArticle::class, $article->getId());
 
-            self::assertSame($case, $loaded->getRobotsBehaviour(), sprintf('Round-trip failed for %s', $case->name));
+            self::assertSame($case, $loaded->getRobotsBehaviour(), \sprintf('Round-trip failed for %s', $case->name));
         }
     }
 

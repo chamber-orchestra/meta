@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ChamberOrchestra\MetaBundle\Cms\Form\Type;
 
+use ChamberOrchestra\FileBundle\Cms\Form\Type\ImageType;
 use ChamberOrchestra\MetaBundle\Cms\Form\Dto\MetaDto;
 use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
-use ChamberOrchestra\FileBundle\Cms\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -51,7 +51,7 @@ class MetaType extends AbstractType
             ->add('robotsBehaviour', EnumType::class, [
                 'class' => RobotsBehaviour::class,
                 'required' => true,
-                'choice_label' => static fn(RobotsBehaviour $case): string => match ($case) {
+                'choice_label' => static fn (RobotsBehaviour $case): string => match ($case) {
                     RobotsBehaviour::IndexFollow => 'robots_behaviour.indexfollow',
                     RobotsBehaviour::IndexNoFollow => 'robots_behaviour.indexnofollow',
                     RobotsBehaviour::NoIndexFollow => 'robots_behaviour.noindexfollow',

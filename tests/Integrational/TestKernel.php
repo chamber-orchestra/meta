@@ -6,11 +6,11 @@ namespace Tests\Integrational;
 
 use ChamberOrchestra\MetaBundle\ChamberOrchestraMetaBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel;
-use Doctrine\ORM\EntityManagerInterface;
 
 final class TestKernel extends Kernel
 {
@@ -37,7 +37,7 @@ final class TestKernel extends Kernel
             : [
                 'driver' => 'pdo_pgsql',
                 'host' => '/var/run/postgresql',
-                'user' => get_current_user(),
+                'user' => \get_current_user(),
                 'dbname' => 'meta_bundle_test',
                 'server_version' => '17',
             ];

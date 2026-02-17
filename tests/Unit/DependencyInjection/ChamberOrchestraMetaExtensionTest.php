@@ -17,9 +17,9 @@ final class ChamberOrchestraMetaExtensionTest extends TestCase
 
         $extension->load([], $container);
 
-        $serviceIds = array_filter(
+        $serviceIds = \array_filter(
             $container->getServiceIds(),
-            static fn(string $id): bool => str_starts_with($id, 'ChamberOrchestra\\MetaBundle\\'),
+            static fn (string $id): bool => \str_starts_with($id, 'ChamberOrchestra\\MetaBundle\\'),
         );
 
         self::assertSame([], $serviceIds);

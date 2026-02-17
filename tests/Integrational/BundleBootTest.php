@@ -12,7 +12,7 @@ final class BundleBootTest extends KernelTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        restore_exception_handler();
+        \restore_exception_handler();
     }
 
     public function testKernelBootsSuccessfully(): void

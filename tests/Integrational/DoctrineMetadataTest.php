@@ -15,7 +15,7 @@ final class DoctrineMetadataTest extends KernelTestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        restore_exception_handler();
+        \restore_exception_handler();
     }
 
     public function testTestArticleMetadataIsLoaded(): void
@@ -38,7 +38,7 @@ final class DoctrineMetadataTest extends KernelTestCase
         foreach ($expectedFields as $field) {
             self::assertTrue(
                 $metadata->hasField($field),
-                sprintf('Field "%s" is missing from metadata', $field),
+                \sprintf('Field "%s" is missing from metadata', $field),
             );
         }
     }

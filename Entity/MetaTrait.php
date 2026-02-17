@@ -79,7 +79,7 @@ trait MetaTrait
             'pageTitle' => $this->title,
             'title' => $this->metaTitle,
             'image' => $this->metaImagePath,
-            'description' => $this->metaDescription !== null ? strip_tags($this->metaDescription) : null,
+            'description' => null !== $this->metaDescription ? \strip_tags($this->metaDescription) : null,
             'keywords' => $this->metaKeywords,
         ];
     }
