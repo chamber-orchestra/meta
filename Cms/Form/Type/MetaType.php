@@ -42,7 +42,7 @@ class MetaType extends AbstractType
                 'attr' => ['maxlength' => $max = 127],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['max' => $max]),
+                    new Length(max: $max),
                 ],
             ])
             ->add('robotsBehaviour', ChoiceType::class, [
@@ -58,21 +58,21 @@ class MetaType extends AbstractType
                 'required' => false,
                 'attr' => ['maxlength' => $max = 127],
                 'constraints' => [
-                    new Length(['max' => $max]),
+                    new Length(max: $max),
                 ],
             ])
             ->add('metaDescription', TextareaType::class, [
                 'required' => false,
                 'attr' => ['maxlength' => $max = 255],
                 'constraints' => [
-                    new Length(['max' => $max]),
+                    new Length(max: $max),
                 ],
             ])
             ->add('metaKeywords', TextareaType::class, [
                 'required' => false,
                 'attr' => ['maxlength' => $max = 255],
                 'constraints' => [
-                    new Length(['max' => $max]),
+                    new Length(max: $max),
                 ],
             ]);
     }
