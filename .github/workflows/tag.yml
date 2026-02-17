@@ -3,7 +3,7 @@ name: Tag Release
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [master, "8.0"]
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: master
+          ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
           fetch-tags: true
 
@@ -37,5 +37,10 @@ jobs:
 
       - name: Create and push tag
         run: |
-          git tag "${{ steps.version.outputs.next }}"
-          git push origin "${{ steps.version.outputs.next }}"
+          next="${{ steps.version.outputs.next }}"
+          if [[ -z "$next" ]]; then
+            echo "::error::Version computation produced an empty tag — aborting"
+            exit 1
+          fi
+          git tag "$next"
+          git push origin "$next"

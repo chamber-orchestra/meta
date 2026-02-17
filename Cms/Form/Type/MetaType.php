@@ -8,7 +8,7 @@ use ChamberOrchestra\MetaBundle\Cms\Form\Dto\MetaDto;
 use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
 use ChamberOrchestra\FileBundle\Cms\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,6 +19,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class MetaType extends AbstractType
 {
+    private const int MAX_STRING_LENGTH = 255;
+    private const int MAX_DESCRIPTION_LENGTH = 160;
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -39,40 +42,44 @@ class MetaType extends AbstractType
             ])
             ->add('title', TextType::class, [
                 'required' => true,
-                'attr' => ['maxlength' => $max = 127],
+                'attr' => ['maxlength' => self::MAX_STRING_LENGTH],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(max: $max),
+                    new Length(max: self::MAX_STRING_LENGTH),
                 ],
             ])
-            ->add('robotsBehaviour', ChoiceType::class, [
+            ->add('robotsBehaviour', EnumType::class, [
+                'class' => RobotsBehaviour::class,
                 'required' => true,
-                'expanded' => false,
-                'multiple' => false,
-                'choices' => RobotsBehaviour::choices(),
+                'choice_label' => static fn(RobotsBehaviour $case): string => match ($case) {
+                    RobotsBehaviour::IndexFollow => 'robots_behaviour.indexfollow',
+                    RobotsBehaviour::IndexNoFollow => 'robots_behaviour.indexnofollow',
+                    RobotsBehaviour::NoIndexFollow => 'robots_behaviour.noindexfollow',
+                    RobotsBehaviour::NoIndexNoFollow => 'robots_behaviour.noindexnofollow',
+                },
                 'constraints' => [
                     new NotBlank(),
                 ],
             ])
             ->add('metaTitle', TextType::class, [
                 'required' => false,
-                'attr' => ['maxlength' => $max = 127],
+                'attr' => ['maxlength' => self::MAX_STRING_LENGTH],
                 'constraints' => [
-                    new Length(max: $max),
+                    new Length(max: self::MAX_STRING_LENGTH),
                 ],
             ])
             ->add('metaDescription', TextareaType::class, [
                 'required' => false,
-                'attr' => ['maxlength' => $max = 255],
+                'attr' => ['data-maxlength' => self::MAX_DESCRIPTION_LENGTH, 'rows' => 3],
                 'constraints' => [
-                    new Length(max: $max),
+                    new Length(max: self::MAX_DESCRIPTION_LENGTH),
                 ],
             ])
-            ->add('metaKeywords', TextareaType::class, [
+            ->add('metaKeywords', TextType::class, [
                 'required' => false,
-                'attr' => ['maxlength' => $max = 255],
+                'attr' => ['maxlength' => self::MAX_STRING_LENGTH],
                 'constraints' => [
-                    new Length(max: $max),
+                    new Length(max: self::MAX_STRING_LENGTH),
                 ],
             ]);
     }

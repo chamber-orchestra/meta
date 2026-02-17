@@ -6,9 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A Symfony bundle providing a reusable SEO meta data layer — entity interface, Doctrine ORM trait, enum, and optionally CMS form types/DTOs — designed to mix into content entities.
 
-**Requirements:** PHP ^8.5, Doctrine ORM ^3.0, Symfony 8.0
+**Requirements:** PHP ^8.5, Doctrine ORM ^3.0, Symfony ^8.0, `chamber-orchestra/file-bundle` ^8.0
 
 **Namespace:** `ChamberOrchestra\MetaBundle` (PSR-4 from package root — no `src/` directory)
+
+**Bundle class:** `ChamberOrchestraMetaBundle` — DI extension is `ChamberOrchestraMetaExtension` (no services registered; entity layer is pure PHP)
 
 ## Commands
 
@@ -22,15 +24,15 @@ composer test                           # Alias for vendor/bin/phpunit
 
 ## Architecture
 
-### Entity Layer (standalone)
+### Entity Layer
 
-- `MetaInterface` — contract for `getTitle()`, `getMetaTitle()`, `getMetaDescription()`, `getMetaKeywords()`, `getRobotsBehaviour(): int`
-- `MetaTrait` — Doctrine ORM implementation with mapped properties: `title`, `metaTitle`, `metaImagePath`, `metaDescription`, `metaKeywords`, `robotsBehaviour` (smallint). Helper `getMeta(): array` returns clean associative meta values.
-- `RobotsBehaviour` — int-backed enum: `IndexFollow(0)`, `IndexNoFollow(1)`, `NoIndexFollow(2)`, `NoIndexNoFollow(3)`. Provides `choices()` for form ChoiceType and `getFormattedBehaviour()` for robots meta tag strings.
+- `MetaInterface` — contract for `getTitle()`, `getMetaTitle()`, `getMetaDescription()`, `getMetaKeywords()`, `getMetaImage()`, `getMetaImagePath()`, `getRobotsBehaviour()`, `getMeta()`
+- `MetaTrait` — Doctrine ORM implementation with mapped properties: `title`, `metaTitle`, `metaImage` (transient, `#[UploadableProperty]`), `metaImagePath`, `metaDescription`, `metaKeywords`, `robotsBehaviour` (smallint with `enumType: RobotsBehaviour`). The `metaImage` File property integrates with file-bundle's upload system via `#[Upload\UploadableProperty(mappedBy: 'metaImagePath')]`.
+- `RobotsBehaviour` — int-backed enum: `IndexFollow(0)`, `IndexNoFollow(1)`, `NoIndexFollow(2)`, `NoIndexNoFollow(3)`. Provides `format(): string` for robots meta tag strings.
 
 ### CMS/Form Layer (requires external packages)
 
-- `MetaDto` / `MetaType` — admin forms (requires `dev/cms-bundle`, `dev/file-bundle`)
+- `MetaDto` / `MetaType` — admin forms using Symfony `EnumType` for robots behaviour (requires `dev/cms-bundle`, `dev/file-bundle`)
 - `MetaTranslatableDto` / `MetaTranslatableType` — multi-language support (requires `dev/translation-bundle`)
 
 ## Testing

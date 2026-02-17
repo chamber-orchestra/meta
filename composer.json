@@ -1,12 +1,19 @@
 {
   "name": "chamber-orchestra/meta-bundle",
   "type": "symfony-bundle",
-  "description": "Symfony bundle providing SEO meta data entity traits, forms, and DTOs",
+  "description": "Symfony 8 bundle providing reusable SEO meta data layer — Doctrine ORM trait, interface, robots enum, and optional CMS admin form types with i18n support",
   "keywords": [
     "symfony",
+    "symfony8",
     "seo",
     "meta",
+    "meta-tags",
+    "open-graph",
+    "file-upload",
+    "robots",
     "doctrine",
+    "orm",
+    "trait",
     "bundle"
   ],
   "license": "Apache-2.0",
@@ -20,14 +27,17 @@
   ],
   "require": {
     "php": "^8.5",
+    "chamber-orchestra/file-bundle": "^8.0",
     "doctrine/orm": "^3.0",
-    "symfony/http-foundation": "8.0.*",
-    "symfony/http-kernel": "8.0.*"
+    "symfony/http-foundation": "^8.0",
+    "symfony/http-kernel": "^8.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^13.0"
+    "doctrine/doctrine-bundle": "^3.2",
+    "phpunit/phpunit": "^13.0",
+    "symfony/framework-bundle": "^8.0",
+    "symfony/yaml": "^8.0"
   },
-  "suggest": {},
   "autoload": {
     "psr-4": {
       "ChamberOrchestra\\MetaBundle\\": ""

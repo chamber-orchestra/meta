@@ -5,59 +5,23 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity\Helper;
 
 use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
-use ChamberOrchestra\MetaBundle\Exception\OutOfBoundsException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class RobotsBehaviourTest extends TestCase
 {
-    public function testChoicesReturnsAllCases(): void
+    #[DataProvider('formatProvider')]
+    public function testFormat(RobotsBehaviour $case, string $expected): void
     {
-        $choices = RobotsBehaviour::choices();
-
-        self::assertCount(4, $choices);
-        self::assertSame(0, $choices['robots_behaviour.indexfollow']);
-        self::assertSame(1, $choices['robots_behaviour.indexnofollow']);
-        self::assertSame(2, $choices['robots_behaviour.noindexfollow']);
-        self::assertSame(3, $choices['robots_behaviour.noindexnofollow']);
+        self::assertSame($expected, $case->format());
     }
 
-    public function testChoicesKeysAreTranslationKeys(): void
+    public static function formatProvider(): iterable
     {
-        $choices = RobotsBehaviour::choices();
-
-        foreach (array_keys($choices) as $key) {
-            self::assertStringStartsWith('robots_behaviour.', $key);
-        }
-    }
-
-    #[DataProvider('formattedBehaviourProvider')]
-    public function testGetFormattedBehaviour(int $value, string $expected): void
-    {
-        self::assertSame($expected, RobotsBehaviour::getFormattedBehaviour($value));
-    }
-
-    public static function formattedBehaviourProvider(): iterable
-    {
-        yield 'IndexFollow' => [0, 'index, follow'];
-        yield 'IndexNoFollow' => [1, 'index, nofollow'];
-        yield 'NoIndexFollow' => [2, 'noindex, follow'];
-        yield 'NoIndexNoFollow' => [3, 'noindex, nofollow'];
-    }
-
-    public function testGetFormattedBehaviourThrowsOnInvalidValue(): void
-    {
-        $this->expectException(OutOfBoundsException::class);
-        $this->expectExceptionMessage("No behaviour with type '99'");
-
-        RobotsBehaviour::getFormattedBehaviour(99);
-    }
-
-    public function testGetFormattedBehaviourThrowsOnNegativeValue(): void
-    {
-        $this->expectException(OutOfBoundsException::class);
-
-        RobotsBehaviour::getFormattedBehaviour(-1);
+        yield 'IndexFollow' => [RobotsBehaviour::IndexFollow, 'index, follow'];
+        yield 'IndexNoFollow' => [RobotsBehaviour::IndexNoFollow, 'index, nofollow'];
+        yield 'NoIndexFollow' => [RobotsBehaviour::NoIndexFollow, 'noindex, follow'];
+        yield 'NoIndexNoFollow' => [RobotsBehaviour::NoIndexNoFollow, 'noindex, nofollow'];
     }
 
     public function testEnumCasesHaveCorrectValues(): void

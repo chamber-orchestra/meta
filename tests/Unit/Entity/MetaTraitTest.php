@@ -7,7 +7,9 @@ namespace Tests\Unit\Entity;
 use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
 use ChamberOrchestra\MetaBundle\Entity\MetaInterface;
 use ChamberOrchestra\MetaBundle\Entity\MetaTrait;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\File;
 
 final class MetaTraitTest extends TestCase
 {
@@ -36,7 +38,7 @@ final class MetaTraitTest extends TestCase
                 $this->metaKeywords = $metaKeywords;
             }
 
-            public function setRobotsBehaviour(int $robotsBehaviour): void
+            public function setRobotsBehaviour(RobotsBehaviour $robotsBehaviour): void
             {
                 $this->robotsBehaviour = $robotsBehaviour;
             }
@@ -45,7 +47,17 @@ final class MetaTraitTest extends TestCase
             {
                 $this->metaImagePath = $path;
             }
+
+            public function setMetaImage(?File $file): void
+            {
+                $this->metaImage = $file;
+            }
         };
+    }
+
+    public function testEntityImplementsMetaInterface(): void
+    {
+        self::assertInstanceOf(MetaInterface::class, $this->createEntity());
     }
 
     public function testDefaultValues(): void
@@ -58,7 +70,7 @@ final class MetaTraitTest extends TestCase
         self::assertNull($entity->getMetaKeywords());
         self::assertNull($entity->getMetaImage());
         self::assertNull($entity->getMetaImagePath());
-        self::assertSame(RobotsBehaviour::IndexNoFollow->value, $entity->getRobotsBehaviour());
+        self::assertSame(RobotsBehaviour::IndexNoFollow, $entity->getRobotsBehaviour());
     }
 
     public function testGettersReturnSetValues(): void
@@ -75,19 +87,21 @@ final class MetaTraitTest extends TestCase
         self::assertSame('key1, key2', $entity->getMetaKeywords());
     }
 
-    public function testGetFormattedRobotsBehaviourDefault(): void
+    #[DataProvider('robotsBehaviourFormatProvider')]
+    public function testGetFormattedRobotsBehaviour(RobotsBehaviour $case, string $expected): void
     {
         $entity = $this->createEntity();
+        $entity->setRobotsBehaviour($case);
 
-        self::assertSame('index, nofollow', $entity->getFormattedRobotsBehaviour());
+        self::assertSame($expected, $entity->getFormattedRobotsBehaviour());
     }
 
-    public function testGetFormattedRobotsBehaviourCustom(): void
+    public static function robotsBehaviourFormatProvider(): iterable
     {
-        $entity = $this->createEntity();
-        $entity->setRobotsBehaviour(RobotsBehaviour::NoIndexNoFollow->value);
-
-        self::assertSame('noindex, nofollow', $entity->getFormattedRobotsBehaviour());
+        yield 'IndexFollow' => [RobotsBehaviour::IndexFollow, 'index, follow'];
+        yield 'IndexNoFollow' => [RobotsBehaviour::IndexNoFollow, 'index, nofollow'];
+        yield 'NoIndexFollow' => [RobotsBehaviour::NoIndexFollow, 'noindex, follow'];
+        yield 'NoIndexNoFollow' => [RobotsBehaviour::NoIndexNoFollow, 'noindex, nofollow'];
     }
 
     public function testGetMetaWithAllValues(): void
@@ -121,14 +135,38 @@ final class MetaTraitTest extends TestCase
         self::assertNull($meta['keywords']);
     }
 
+    public function testGetMetaDoesNotContainRobotsKey(): void
+    {
+        $entity = $this->createEntity();
+
+        self::assertArrayNotHasKey('robots', $entity->getMeta());
+    }
+
     public function testGetMetaStripsHtmlFromDescription(): void
     {
         $entity = $this->createEntity();
         $entity->setMetaDescription('<p>Hello <strong>world</strong></p>');
 
-        $meta = $entity->getMeta();
+        self::assertSame('Hello world', $entity->getMeta()['description']);
+    }
 
-        self::assertSame('Hello world', $meta['description']);
+    public function testGetMetaPreservesHtmlEntitiesInDescription(): void
+    {
+        $entity = $this->createEntity();
+        $entity->setMetaDescription('Hello &amp; <strong>world</strong>');
+
+        self::assertSame('Hello &amp; world', $entity->getMeta()['description']);
+    }
+
+    public function testGetMetaStripsScriptTags(): void
+    {
+        $entity = $this->createEntity();
+        $entity->setMetaDescription('<script>alert(1)</script>Description');
+
+        $description = $entity->getMeta()['description'];
+
+        self::assertStringNotContainsString('<script>', $description);
+        self::assertSame('alert(1)Description', $description);
     }
 
     public function testGetMetaPreservesNullDescription(): void
@@ -136,9 +174,7 @@ final class MetaTraitTest extends TestCase
         $entity = $this->createEntity();
         $entity->setMetaDescription(null);
 
-        $meta = $entity->getMeta();
-
-        self::assertNull($meta['description']);
+        self::assertNull($entity->getMeta()['description']);
     }
 
     public function testGetMetaImagePath(): void
@@ -147,5 +183,17 @@ final class MetaTraitTest extends TestCase
         $entity->setMetaImagePath('/uploads/seo/image.png');
 
         self::assertSame('/uploads/seo/image.png', $entity->getMetaImagePath());
+    }
+
+    public function testGetMetaImage(): void
+    {
+        $entity = $this->createEntity();
+
+        self::assertNull($entity->getMetaImage());
+
+        $file = new File(__FILE__);
+        $entity->setMetaImage($file);
+
+        self::assertSame($file, $entity->getMetaImage());
     }
 }

@@ -10,6 +10,10 @@
     <php>
         <ini name="error_reporting" value="-1"/>
         <ini name="display_errors" value="1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="APP_DEBUG" value="true" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="KERNEL_CLASS" value="Tests\Integrational\TestKernel" />
     </php>
     <testsuites>
         <testsuite name="Project Test Suite">
@@ -18,12 +22,9 @@
     </testsuites>
     <source>
         <include>
-            <directory suffix=".php">.</directory>
+            <directory suffix=".php">Entity</directory>
+            <directory suffix=".php">DependencyInjection</directory>
+            <file>ChamberOrchestraMetaBundle.php</file>
         </include>
-        <exclude>
-            <directory>tests</directory>
-            <directory>vendor</directory>
-            <directory>Cms</directory>
-        </exclude>
     </source>
 </phpunit>
