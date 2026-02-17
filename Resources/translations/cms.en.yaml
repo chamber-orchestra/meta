@@ -1,0 +1,18 @@
+meta:
+    field:
+        title: "Title (H1)"
+        metaTitle: "Meta title"
+        metaDescription: "Meta description"
+        metaKeywords: "Keywords"
+        robotsBehaviour: "Robots Behaviour"
+        metaImage: "Meta image"
+
+common:
+    nav:
+        meta: Meta
+
+robots_behaviour:
+    indexfollow: "INDEX, FOLLOW"
+    indexnofollow: "INDEX, NO FOLLOW"
+    noindexfollow:  "NO INDEX, FOLLOW"
+    noindexnofollow: "NO INDEX, NO FOLLOW"

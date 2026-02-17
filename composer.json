@@ -1,0 +1,63 @@
+{
+  "name": "chamber-orchestra/meta-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony 8 bundle providing reusable SEO meta data layer — Doctrine ORM trait, interface, robots enum, and optional CMS admin form types with i18n support",
+  "keywords": [
+    "symfony",
+    "symfony8",
+    "seo",
+    "meta",
+    "meta-tags",
+    "open-graph",
+    "file-upload",
+    "robots",
+    "doctrine",
+    "orm",
+    "trait",
+    "bundle"
+  ],
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Andrew Lukin",
+      "email": "lukin.andrej@gmail.com",
+      "homepage": "https://github.com/wtorsi",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.5",
+    "chamber-orchestra/file-bundle": "^8.0",
+    "doctrine/orm": "^3.0",
+    "symfony/http-foundation": "^8.0",
+    "symfony/http-kernel": "^8.0"
+  },
+  "require-dev": {
+    "doctrine/doctrine-bundle": "^3.2",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpunit/phpunit": "^13.0",
+    "symfony/framework-bundle": "^8.0",
+    "symfony/yaml": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ChamberOrchestra\\MetaBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/tests/",
+      "/Cms/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
+}

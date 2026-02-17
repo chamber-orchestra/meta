@@ -1,0 +1,18 @@
+meta:
+    field:
+        title: "Заголовок (H1)"
+        metaTitle: "Meta заголовок"
+        metaDescription: "Meta описание"
+        metaKeywords: "Ключевые слова"
+        robotsBehaviour: "Тэг robots"
+        metaImage: "Meta изображение"
+
+common:
+    nav:
+        meta: Meta
+
+robots_behaviour:
+    indexfollow: "INDEX, FOLLOW"
+    indexnofollow: "INDEX, NO FOLLOW"
+    noindexfollow:  "NO INDEX, FOLLOW"
+    noindexnofollow: "NO INDEX, NO FOLLOW"
