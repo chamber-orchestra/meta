@@ -1,11 +1,9 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- Entity layer (`Entity/`) provides `MetaInterface`, `MetaTrait`, and `RobotsBehaviour` enum under `ChamberOrchestra\MetaBundle`.
-- CMS form layer (`Cms/Form/`) provides DTOs and Symfony form types — requires external `dev/*` packages.
-- Bundle entry point is `ChamberOrchestraMetaBundle.php`; DI extension in `DependencyInjection/ChamberOrchestraMetaExtension.php`.
+- Entity layer (`src/Entity/`) provides `MetaTrait` and `RobotsBehaviour` enum under `ChamberOrchestra\Meta`.
 - Tests belong in `tests/` (autoloaded as `Tests\`); tools are in `bin/` (`bin/phpunit`).
-- Autoloading is PSR-4 from the package root (no `src/` directory).
+- Autoloading is PSR-4 from `src/`.
 - Requirements: PHP 8.5+, Doctrine ORM ^3.0, Symfony 8.0.
 
 ## Build, Test, and Development Commands

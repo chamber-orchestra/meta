@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ChamberOrchestra\MetaBundle\Entity\Helper;
+namespace ChamberOrchestra\Meta\Entity\Helper;
 
 enum RobotsBehaviour: int
 {

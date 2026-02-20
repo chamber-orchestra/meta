@@ -2,5 +2,6 @@
 /var/
 composer.lock
 .claude/settings.local.json
-.php-cs-fixer.cache
+.claude/agent-memory/
 .phpunit.cache/
+.php-cs-fixer.cache

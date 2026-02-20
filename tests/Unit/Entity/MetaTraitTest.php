@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Entity;
 
-use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
-use ChamberOrchestra\MetaBundle\Entity\MetaInterface;
-use ChamberOrchestra\MetaBundle\Entity\MetaTrait;
+use ChamberOrchestra\Meta\Entity\Helper\RobotsBehaviour;
+use ChamberOrchestra\Meta\Entity\MetaTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class MetaTraitTest extends TestCase
 {
-    private function createEntity(): MetaInterface
+    private function createEntity(): object
     {
-        return new class implements MetaInterface {
+        return new class {
             use MetaTrait;
 
             public function setTitle(?string $title): void
@@ -53,11 +52,6 @@ final class MetaTraitTest extends TestCase
                 $this->metaImage = $file;
             }
         };
-    }
-
-    public function testEntityImplementsMetaInterface(): void
-    {
-        self::assertInstanceOf(MetaInterface::class, $this->createEntity());
     }
 
     public function testDefaultValues(): void
