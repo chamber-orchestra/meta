@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Entity\Helper;
 
-use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
+use ChamberOrchestra\Meta\Entity\Helper\RobotsBehaviour;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

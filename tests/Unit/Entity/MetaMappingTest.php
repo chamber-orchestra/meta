@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Entity;
 
-use ChamberOrchestra\MetaBundle\Entity\Helper\RobotsBehaviour;
-use ChamberOrchestra\MetaBundle\Entity\MetaInterface;
-use ChamberOrchestra\MetaBundle\Entity\MetaTrait;
+use ChamberOrchestra\Meta\Entity\Helper\RobotsBehaviour;
+use ChamberOrchestra\Meta\Entity\MetaTrait;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -14,7 +13,7 @@ use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use PHPUnit\Framework\TestCase;
 
 #[ORM\Entity]
-class MetaMappingTestEntity implements MetaInterface
+class MetaMappingTestEntity
 {
     use MetaTrait;
 
