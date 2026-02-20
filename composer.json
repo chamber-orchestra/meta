@@ -1,10 +1,9 @@
 {
-  "name": "chamber-orchestra/meta-bundle",
-  "type": "symfony-bundle",
-  "description": "Symfony 8 bundle providing a Doctrine ORM trait for SEO meta fields — title, description, keywords, Open Graph image, and robots behaviour",
+  "name": "chamber-orchestra/meta",
+  "type": "library",
+  "description": "Symfony 8 library providing a Doctrine ORM trait for SEO meta fields — title, description, keywords, Open Graph image, and robots behaviour",
   "keywords": [
     "symfony",
-    "symfony-bundle",
     "seo",
     "meta",
     "meta-tags",
