@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ChamberOrchestra\Meta\Entity;
 
-use ChamberOrchestra\FileBundle\Mapping\Annotation as Upload;
+use ChamberOrchestra\FileBundle\Mapping\Attribute as Upload;
 use ChamberOrchestra\Meta\Entity\Helper\RobotsBehaviour;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
