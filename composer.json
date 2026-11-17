@@ -24,9 +24,9 @@
   ],
   "require": {
     "php": "^8.5",
-    "chamber-orchestra/view-bundle": "8.1.*",
-    "doctrine/orm": "3.7.*",
-    "symfony/http-foundation": "8.1.*"
+    "chamber-orchestra/view-bundle": "8.2.*",
+    "doctrine/orm": "3.8.*",
+    "symfony/http-foundation": "8.2.*"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.95",
@@ -43,7 +43,7 @@
       "Tests\\": "tests/"
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "beta",
   "config": {
     "sort-packages": true,
     "allow-plugins": {
@@ -54,5 +54,6 @@
     "test": "vendor/bin/phpunit",
     "analyse": "vendor/bin/phpstan analyse",
     "cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff"
-  }
+  },
+  "prefer-stable": true
 }

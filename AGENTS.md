@@ -4,7 +4,7 @@
 - Entity layer (`src/Entity/`) provides `MetaTrait` and `RobotsBehaviour` enum under `ChamberOrchestra\Meta`.
 - Tests belong in `tests/` (autoloaded as `Tests\`); tools are in `bin/` (`bin/phpunit`).
 - Autoloading is PSR-4 from `src/`.
-- Requirements: PHP 8.5+, Doctrine ORM ^3.0, Symfony 8.0.
+- Requirements: PHP 8.5+, Doctrine ORM ^3.0, Symfony 8.2.
 
 ## Build, Test, and Development Commands
 - Install dependencies: `composer install`.

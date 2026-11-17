@@ -7,7 +7,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/chamber-orchestra/meta.svg)](https://packagist.org/packages/chamber-orchestra/meta)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PHP 8.5+](https://img.shields.io/badge/PHP-8.5%2B-777BB4.svg)](https://www.php.net/)
-[![Symfony 8.0](https://img.shields.io/badge/Symfony-8.0-000000.svg)](https://symfony.com/)
+[![Symfony 8.2](https://img.shields.io/badge/Symfony-8.2-000000.svg)](https://symfony.com/)
 
 Symfony 8 library providing a Doctrine ORM trait for SEO meta fields — title, description, keywords, Open Graph image, and robots behaviour. Mix into any Doctrine entity with zero boilerplate.
 
